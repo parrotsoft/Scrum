@@ -17,6 +17,7 @@ public class Producto {
     private int stock;
     private int proveedor;
     private boolean activo;
+    private double total;
     
     public Producto() {
         
@@ -81,6 +82,14 @@ public class Producto {
     
     public boolean getActivo() {
         return this.activo;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
     
     

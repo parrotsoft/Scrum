@@ -9,6 +9,7 @@ import Vistas.Clientes;
 import Vistas.Principal;
 import Vistas.Productos;
 import Vistas.Proveedores;
+import Vistas.RepVentas;
 import Vistas.Usuarios;
 import Vistas.Ventas;
 import java.awt.event.ActionEvent;
@@ -30,6 +31,7 @@ public class PrincipalController implements ActionListener {
         this.viewPrincipal.itemVentas.addActionListener(this);
         this.viewPrincipal.itemSalir.addActionListener(this);
         this.viewPrincipal.itemUsuarios.addActionListener(this);
+        this.viewPrincipal.itemRepVentas.addActionListener(this);
     }
 
     
@@ -74,6 +76,14 @@ public class PrincipalController implements ActionListener {
             this.viewPrincipal.Desktop.add(viewUsuarios);
             viewUsuarios.toFront();
             viewUsuarios.setVisible(true);
+        }
+        
+        if (e.getSource() == this.viewPrincipal.itemRepVentas) {
+            RepVentas viewRepVentas = new RepVentas();
+            RepVentaController repVentaController = new RepVentaController(viewRepVentas);
+            this.viewPrincipal.Desktop.add(viewRepVentas);
+            viewRepVentas.toFront();
+            viewRepVentas.setVisible(true);
         }
         
         if (e.getSource() == this.viewPrincipal.itemSalir) {

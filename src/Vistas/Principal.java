@@ -43,6 +43,8 @@ public class Principal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemUsuarios = new javax.swing.JMenuItem();
         itemSalir = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        itemRepVentas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,6 +80,13 @@ public class Principal extends javax.swing.JFrame {
         menuClientes.add(itemSalir);
 
         jMenuBar1.add(menuClientes);
+
+        jMenu1.setText("Reportes");
+
+        itemRepVentas.setText("Ventas");
+        jMenu1.add(itemRepVentas);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -143,9 +152,11 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemClientes;
     public javax.swing.JMenuItem itemProductos;
     public javax.swing.JMenuItem itemProveedores;
+    public javax.swing.JMenuItem itemRepVentas;
     public javax.swing.JMenuItem itemSalir;
     public javax.swing.JMenuItem itemUsuarios;
     public javax.swing.JMenuItem itemVentas;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     public javax.swing.JMenu menuClientes;
