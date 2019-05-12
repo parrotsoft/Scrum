@@ -6,8 +6,10 @@
 package Controlador;
 
 import Dao.ProductoDaoImpl;
+import Dao.ProveedorDaoImpl;
 import Vistas.Productos;
 import Modelo.Producto;
+import Modelo.Proveedor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -22,11 +24,13 @@ public class ProductoController implements ActionListener {
 
     Productos viewProducto = new Productos();
     ProductoDaoImpl productoDao = new ProductoDaoImpl();
+    ProveedorDaoImpl proveedoresDao = new ProveedorDaoImpl();
     
     public ProductoController(Productos viewProducto) {
         this.viewProducto = viewProducto;
         this.viewProducto.btnGuardar.addActionListener(this);
         this.setTable();
+        this.setComboBoxProveedores();
     }
     
     @Override
@@ -36,7 +40,8 @@ public class ProductoController implements ActionListener {
             producto.setNombre(this.viewProducto.txtNombre.getText());
             producto.setPrecio(Double.parseDouble(this.viewProducto.txtPrecio.getText()));
             producto.setStock(Integer.parseInt(this.viewProducto.txtStock.getText()));
-            producto.setProveedor(Integer.parseInt(this.viewProducto.txtProveedor.getText()));
+            String idProveedor = this.viewProducto.txtProveedor.getSelectedItem().toString().split("|")[0];
+            producto.setProveedor(Integer.parseInt(idProveedor));
             producto.setActivo(true);
             
             if (this.productoDao.guardar(producto)) {
@@ -44,7 +49,7 @@ public class ProductoController implements ActionListener {
                 this.viewProducto.txtNombre.setText("");
                 this.viewProducto.txtPrecio.setText("");
                 this.viewProducto.txtStock.setText("");
-                this.viewProducto.txtProveedor.setText("");
+                //this.viewProducto.txtProveedor.setText("");
                 this.setTable();
             } else {
                 JOptionPane.showMessageDialog(null, "Error: No se pudo guardar el Producto");
@@ -68,5 +73,12 @@ public class ProductoController implements ActionListener {
                 model.addRow(fila);
             }
     }
+        
+        private void setComboBoxProveedores() {
+            List<Proveedor> proveedores = proveedoresDao.listar();
+            for (int i = 0; i < proveedores.size(); i++) {
+                this.viewProducto.txtProveedor.addItem(proveedores.get(i).getId() + "|" + proveedores.get(i).getNombre());
+            }
+        }
     
 }

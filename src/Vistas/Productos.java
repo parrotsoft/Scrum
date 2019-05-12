@@ -36,7 +36,7 @@ public class Productos extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         txtStock = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtProveedor = new javax.swing.JTextField();
+        txtProveedor = new javax.swing.JComboBox();
         btnGuardar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -72,8 +72,6 @@ public class Productos extends javax.swing.JInternalFrame {
         jLabel3.setForeground(new java.awt.Color(0, 0, 204));
         jLabel3.setText("Proveedor :");
 
-        txtProveedor.setBackground(new java.awt.Color(204, 255, 255));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -87,10 +85,10 @@ public class Productos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-                    .addComponent(txtStock)
+                    .addComponent(txtStock, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                     .addComponent(txtPrecio)
-                    .addComponent(txtNombre))
+                    .addComponent(txtNombre)
+                    .addComponent(txtProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -187,7 +185,7 @@ public class Productos extends javax.swing.JInternalFrame {
     public javax.swing.JTable tblProductos;
     public javax.swing.JTextField txtNombre;
     public javax.swing.JTextField txtPrecio;
-    public javax.swing.JTextField txtProveedor;
+    public javax.swing.JComboBox txtProveedor;
     public javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
 }
