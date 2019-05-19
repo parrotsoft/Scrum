@@ -3,11 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/miguel/Downloads/Scrum/src/Dao/ProductoDaoImpl.java</file>
-            <file>file:/Users/miguel/Downloads/Scrum/src/Modelo/Producto.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Dao/ClienteDaoImpl.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Idao/IDetalleVentaDao.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Idao/IVentaDao.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Modelo/DetalleVenta.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Controlador/PrincipalController.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Controlador/ClienteController.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Vistas/Principal.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Dao/VentaDaoImpl.java</file>
             <file>file:/Users/miguel/Downloads/Scrum/src/Vistas/Ventas.java</file>
-            <file>file:/Users/miguel/Downloads/Scrum/src/Controlador/ProductoController.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Vistas/RepVentas.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Controlador/RepVentaController.java</file>
             <file>file:/Users/miguel/Downloads/Scrum/src/Controlador/VentaController.java</file>
+            <file>file:/Users/miguel/Downloads/Scrum/src/Dao/DetalleVentaDaoImp.java</file>
         </group>
     </open-files>
 </project-private>

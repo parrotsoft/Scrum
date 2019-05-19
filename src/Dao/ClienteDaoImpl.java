@@ -97,18 +97,25 @@ public class ClienteDaoImpl implements IClienteDao {
         Statement stm = null;
         Connection con = null;
         
-        String sql = "";
         try {
             con = Conexion.conectart();
-            stm = (Statement) con.createStatement();
-            stm.execute(sql);
+            String query = "{call actualizar_cliente(?,?,?,?,?,?)}";
+            PreparedStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, cliente.getId());
+            stmt.setString(2, cliente.getRut());
+            stmt.setString(3, cliente.getNombre());
+            stmt.setString(4, cliente.getDireccion());
+            stmt.setString(5, cliente.getTelefono());
+            stmt.setBoolean(6, cliente.getActivo());
+            stmt.execute();
+            
             actualizar = true;
-            stm.close();
             con.close();
-        } catch (SQLException e) {
+            stmt.close();
+        } catch(SQLException e) {
             System.err.println("Error: Clase ClienteDaoImpl");
             e.printStackTrace();
-        } catch (ClassNotFoundException ex) {
+        } catch(ClassNotFoundException ex) {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return actualizar;
@@ -136,6 +143,40 @@ public class ClienteDaoImpl implements IClienteDao {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return eliminar;
+    }
+
+    @Override
+    public Cliente getCliente(int clienteId) {
+        Statement stm = null;
+        Connection con = null;
+        ResultSet rs = null;
+        
+        Cliente cliente = new Cliente();
+        
+        try {
+            con = Conexion.conectart();
+            String query = "{call ver_cliente(?)}";
+            PreparedStatement stmt = con.prepareCall(query);
+            stmt.setInt(1,clienteId);
+            rs = stmt.executeQuery();
+            if(rs.next()) {
+                cliente.setId(rs.getInt(1));
+                cliente.setRut(rs.getString(2));
+                cliente.setNombre(rs.getString(3));
+                cliente.setDireccion(rs.getString(4));
+                cliente.setTelefono(rs.getString(5));
+                cliente.setActivo(rs.getBoolean(6));
+            }
+            rs.close();
+            con.close();
+        } catch (SQLException e) {
+            System.err.println("Error : Clase ClienteDaoImpl");
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return cliente;
     }
     
 }

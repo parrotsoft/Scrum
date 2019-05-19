@@ -19,5 +19,6 @@ public interface IUsuarioDao {
     public boolean actualizar(Usuario usuario);
     public boolean eliminar(Usuario usuario);
     public boolean login(Usuario usuario); 
+    public Usuario getUsuario(int Id);
     
 }

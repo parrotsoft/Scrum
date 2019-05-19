@@ -73,6 +73,7 @@ public class UsuarioDaoImpl implements IUsuarioDao {
                 usuario.setClave(rs.getString(3));
                 usuario.setNombre(rs.getString(4));
                 usuario.setRol(rs.getInt(5));
+                usuario.setActivo(rs.getBoolean(6));
                 listaClientes.add(usuario);
             }
             stm.close();
@@ -88,6 +89,7 @@ public class UsuarioDaoImpl implements IUsuarioDao {
         return listaClientes;
     }
 
+    
     @Override
     public boolean actualizar(Usuario usuario) {
         boolean actualizar = false;
@@ -95,18 +97,25 @@ public class UsuarioDaoImpl implements IUsuarioDao {
         Statement stm = null;
         Connection con = null;
         
-        String sql = "";
         try {
             con = Conexion.conectart();
-            stm = (Statement) con.createStatement();
-            stm.execute(sql);
+            String query = "{call actualizar_usuario(?,?,?,?,?,?)}";
+            PreparedStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, usuario.getId());
+            stmt.setString(2, usuario.getUsuario());
+            stmt.setString(3, usuario.getClave());
+            stmt.setString(4, usuario.getNombre());
+            stmt.setInt(5, usuario.getRol());
+            stmt.setBoolean(6, usuario.getActivo());
+            stmt.execute();
+            
             actualizar = true;
-            stm.close();
             con.close();
-        } catch (SQLException e) {
+            stmt.close();
+        } catch(SQLException e) {
             System.err.println("Error: Clase UsuarioDaoImpl");
             e.printStackTrace();
-        } catch (ClassNotFoundException ex) {
+        } catch(ClassNotFoundException ex) {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return actualizar;
@@ -164,6 +173,40 @@ public class UsuarioDaoImpl implements IUsuarioDao {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return loginOk;
+    }
+
+    @Override
+    public Usuario getUsuario(int Id) {
+        Statement stm = null;
+        Connection con = null;
+        ResultSet rs = null;
+        
+        Usuario usuario = new Usuario();
+        
+        try {
+            con = Conexion.conectart();
+            String query = "{call ver_usuario(?)}";
+            PreparedStatement stmt = con.prepareCall(query);
+            stmt.setInt(1,Id);
+            rs = stmt.executeQuery();
+            if(rs.next()) {
+                usuario.setId(rs.getInt(1));
+                usuario.setUsuario(rs.getString(2));
+                usuario.setClave(rs.getString(3));
+                usuario.setNombre(rs.getString(4));
+                usuario.setRol(rs.getInt(5));
+                usuario.setActivo(rs.getBoolean(6));
+            }
+            rs.close();
+            con.close();
+        } catch (SQLException e) {
+            System.err.println("Error : Clase UsuarioDaoImpl");
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return usuario;
     }
     
 }

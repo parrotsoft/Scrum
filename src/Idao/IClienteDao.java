@@ -19,5 +19,6 @@ public interface IClienteDao {
     public List<Cliente> listar();
     public boolean actualizar(Cliente cliente);
     public boolean eliminar(Cliente cliente);
+    public Cliente getCliente(int clienteId);
     
 }
