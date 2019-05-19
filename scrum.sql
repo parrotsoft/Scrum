@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: May 12, 2019 at 05:33 PM
+-- Generation Time: May 19, 2019 at 03:10 AM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -26,6 +26,26 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_cliente` (`_id` INT, `_rut` VARCHAR(100), `_nombre` VARCHAR(100), `_direccion` VARCHAR(100), `_telefono` VARCHAR(100), `_activo` BINARY)  BEGIN
+	UPDATE clientes SET rut = _rut, nombre = _nombre, direccion = _direccion, telefono = _telefono, activo = _activo
+	WHERE id = _id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_producto` (`_id` INT, `_nombre` VARCHAR(100), `_precio` DOUBLE, `_stock` INT, `_proveedor` INT, `_activo` BINARY)  BEGIN
+	UPDATE productos SET nombre = _nombre, precio = _precio, stock = _stock, proveedor = _proveedor, activo = _activo 
+	WHERE id = _id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_proveedor` (`_id` INT, `_rut` VARCHAR(100), `_nombre` VARCHAR(100), `_direccion` VARCHAR(100), `_telefono` VARCHAR(100), `_web` VARCHAR(100), `_activo` BINARY)  BEGIN
+	UPDATE proveedores SET rut = _rut, nombre = _nombre, direccion = _direccion, telefono = _telefono, activo = _activo
+	WHERE id = _id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_usuario` (`_id` INT, `_usuario` VARCHAR(100), `_clave` VARCHAR(100), `_nombre` VARCHAR(100), `_rol` INT, `_activo` BINARY)  BEGIN
+	UPDATE usuarios SET usuario = _usuario, clave = _clave, nombre = _nombre, rol = _rol, activo = _activo 
+	WHERE id = _id;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `guardar_cliente` (`_id` INT, `_rut` VARCHAR(100), `_nombre` VARCHAR(100), `_direccion` VARCHAR(100), `_telefono` VARCHAR(100), `_activo` BINARY)  BEGIN
 	INSERT INTO clientes (id, rut, nombre, direccion, telefono, activo) VALUES (_id, _rut, _nombre, _direccion, _telefono, _activo);
 END$$
@@ -76,6 +96,22 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (`_usuario` VARCHAR(100), `_
 	SELECT * FROM usuarios WHERE usuario = _usuario AND clave = _clave;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ver_cliente` (`_id` INT)  BEGIN
+	SELECT * FROM clientes WHERE id = _id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ver_producto` (`_id` INT)  BEGIN
+	SELECT * FROM productos WHERE id = _id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ver_proveedor` (`_id` INT)  BEGIN
+	SELECT * FROM proveedores WHERE id = _id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ver_usuario` (`_id` INT)  BEGIN
+	SELECT * FROM usuarios WHERE id = _id;
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -100,7 +136,8 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`id`, `rut`, `nombre`, `direccion`, `telefono`, `activo`) VALUES
 (3, '1043605421', 'miguel', 'calle 222', '23232323', 1),
 (4, '2132', '12312', '12312', '123123', 1),
-(5, '23', 'juan manuel', 'll', 'll', 1);
+(5, '230', 'juan manuel', 'll', 'll0000', 0),
+(6, 'alfredo lopes', 'alfredo', 'calle 44 # 44-21', 'saddsasd', 1);
 
 -- --------------------------------------------------------
 
@@ -127,7 +164,8 @@ INSERT INTO `detalleVentas` (`id`, `venta`, `producto`, `precio`, `cantidad`, `t
 (2, 9, 'Pan de mantequilla', 1000, 3, 3000, 1, 1),
 (3, 10, 'Prueba', 1000, 4, 4000, 3, 1),
 (4, 10, 'Producto2', 1000, 2, 2000, 4, 1),
-(5, 11, 'Prueba', 1000, 2, 2000, 3, 1);
+(5, 11, 'Prueba', 1000, 2, 2000, 3, 1),
+(6, 12, 'Pan de mantequilla 3', 1000, 1, 1000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -149,9 +187,9 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio`, `stock`, `proveedor`, `activo`) VALUES
-(1, 'Pan de mantequilla', 1000, 100, 1, 1),
+(1, 'Pan de mantequilla 3', 1000, 100, 1, 1),
 (2, 'Arroz diana', 2000, 10, 1, 1),
-(3, 'Prueba', 1000, 100, 2, 1),
+(3, 'Prueba', 1000, 100, 3, 1),
 (4, 'Producto2', 1000, 11, 1, 1);
 
 -- --------------------------------------------------------
@@ -176,7 +214,8 @@ CREATE TABLE `proveedores` (
 
 INSERT INTO `proveedores` (`id`, `rut`, `nombre`, `direccion`, `telefono`, `web`, `activo`) VALUES
 (1, '1043605421', 'GraficoApp', 'Calle 38 # 48-59', '3182964859', 'www.google.com', 1),
-(2, '2312312', 'ZepolDP', '0', '0', '0', 1);
+(2, '2312312', 'ZepolDP0', '0', '0', '0', 0),
+(3, 'test', 'test', 'test', 'test', 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -199,7 +238,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `usuario`, `clave`, `nombre`, `rol`, `activo`) VALUES
 (1, 'admin', 'admin', 'Miguel Lopez Ariza', 1, 1),
-(2, 'kt', 'kt', 'Katherine', 2, 1);
+(2, 'kt', 'kt', 'Katherine Mariota', 2, 1),
+(3, 'leonardo', 'leonardo', 'leonardo', 2, 0),
+(4, 'invitado', 'invitado', 'Invitado', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -223,7 +264,8 @@ CREATE TABLE `ventas` (
 INSERT INTO `ventas` (`id`, `cliente`, `rut`, `total`, `fecha`, `activo`) VALUES
 (9, 'miguel', '1043605421', 3000, 'Sun May 12 12:18:59 COT 2019', 1),
 (10, 'miguel', '1043605421', 6000, 'Sun May 12 12:19:37 COT 2019', 1),
-(11, 'juan manuel', '23', 2000, 'Sun May 12 12:32:36 COT 2019', 1);
+(11, 'juan manuel', '23', 2000, 'Sun May 12 12:32:36 COT 2019', 1),
+(12, 'miguel', '1043605421', 1000, 'Sat May 18 22:08:06 COT 2019', 1);
 
 --
 -- Indexes for dumped tables
@@ -273,13 +315,13 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `detalleVentas`
 --
 ALTER TABLE `detalleVentas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `productos`
@@ -291,19 +333,19 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT for table `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
