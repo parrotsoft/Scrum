@@ -87,14 +87,16 @@ public class VentaController implements ActionListener {
     private void setComboBoxClientes() {
         List<Cliente> clientes = this.clienteDao.listar();
         for (int i = 0; i < clientes.size(); i++) {
-            this.viewVentas.txtCliente.addItem(clientes.get(i).getId() + "-" + clientes.get(i).getNombre() + "-" + clientes.get(i).getActivo() + "-" + clientes.get(i).getRut());
+            String activo = clientes.get(i).getActivo()? "Activo": "Inactivo";
+            this.viewVentas.txtCliente.addItem(clientes.get(i).getId() + "-" + clientes.get(i).getNombre() + "-" + activo + "-" + clientes.get(i).getRut());
         }
     }
 
     private void setComboBoxProductos() {
         List<Producto> productos = this.productoDao.listar();
         for (int i = 0; i < productos.size(); i++) {
-            this.viewVentas.txtProducto.addItem(productos.get(i).getId() + "-" + productos.get(i).getNombre() + "-" + productos.get(i).getActivo() + "-" + productos.get(i).getPrecio());
+            String activo = productos.get(i).getActivo()? "Activo": "Inactivo";
+            this.viewVentas.txtProducto.addItem(productos.get(i).getId() + "-" + productos.get(i).getNombre() + "-" + activo + "-" + productos.get(i).getPrecio());
         }
     }
 

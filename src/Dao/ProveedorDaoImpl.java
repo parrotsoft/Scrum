@@ -93,24 +93,32 @@ public class ProveedorDaoImpl implements IProveedorDao {
     }
 
     @Override
-    public boolean actualizar(Proveedor usuario) {
+    public boolean actualizar(Proveedor proveedor) {
         boolean actualizar = false;
         
         Statement stm = null;
         Connection con = null;
         
-        String sql = "";
         try {
             con = Conexion.conectart();
-            stm = (Statement) con.createStatement();
-            stm.execute(sql);
+            String query = "{call actualizar_proveedor(?,?,?,?,?,?,?)}";
+            PreparedStatement stmt = con.prepareCall(query);
+            stmt.setInt(1,proveedor.getId());
+            stmt.setString(2, proveedor.getRut());
+            stmt.setString(3, proveedor.getNombre());
+            stmt.setString(4, proveedor.getDireccion());
+            stmt.setString(5, proveedor.getTelefono());
+            stmt.setString(6, proveedor.getWeb());
+            stmt.setBoolean(7, proveedor.getActivo());
+            stmt.execute();
+            
             actualizar = true;
-            stm.close();
             con.close();
-        } catch (SQLException e) {
+            stmt.close();
+        } catch(SQLException e) {
             System.err.println("Error: Clase ProveedorDaoImpl");
             e.printStackTrace();
-        } catch (ClassNotFoundException ex) {
+        } catch(ClassNotFoundException ex) {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return actualizar;
@@ -138,6 +146,41 @@ public class ProveedorDaoImpl implements IProveedorDao {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return eliminar;
+    }
+
+    @Override
+    public Proveedor getProveedor(int idProvedor) {
+        Statement stm = null;
+        Connection con = null;
+        ResultSet rs = null;
+        
+        Proveedor usuario = new Proveedor();
+        
+        try {
+            con = Conexion.conectart();
+            String query = "{call ver_proveedor(?)}";
+            PreparedStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, idProvedor);
+            rs = stmt.executeQuery();
+            if(rs.next()) {
+                usuario.setId(rs.getInt(1));
+                usuario.setRut(rs.getString(2));
+                usuario.setNombre(rs.getString(3));
+                usuario.setDireccion(rs.getString(4));
+                usuario.setTelefono(rs.getString(5));
+                usuario.setWeb(rs.getString(6));
+                usuario.setActivo(rs.getBoolean(7));
+            }
+            rs.close();
+            con.close();
+        } catch (SQLException e) {
+            System.err.println("Error : Clase ProveedorDaoImpl");
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return usuario;
     }
 
    

@@ -97,18 +97,25 @@ public class ProductoDaoImpl implements IProductoDao {
         Statement stm = null;
         Connection con = null;
         
-        String sql = "";
         try {
             con = Conexion.conectart();
-            stm = (Statement) con.createStatement();
-            stm.execute(sql);
+            String query = "{call actualizar_producto(?,?,?,?,?,?)}";
+            PreparedStatement stmt = con.prepareCall(query);
+            stmt.setInt(1,producto.getId());
+            stmt.setString(2, producto.getNombre());
+            stmt.setDouble(3, producto.getPrecio());
+            stmt.setInt(4, producto.getStock());
+            stmt.setInt(5, producto.getProveedor());
+            stmt.setBoolean(6, producto.getActivo());
+            stmt.execute();
+            
             actualizar = true;
-            stm.close();
             con.close();
-        } catch (SQLException e) {
+            stmt.close();
+        } catch(SQLException e) {
             System.err.println("Error: Clase ProductoDaoImpl");
             e.printStackTrace();
-        } catch (ClassNotFoundException ex) {
+        } catch(ClassNotFoundException ex) {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return actualizar;
@@ -136,6 +143,40 @@ public class ProductoDaoImpl implements IProductoDao {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return eliminar;
+    }
+
+    @Override
+    public Producto getProducto(int IdProducto) {
+        Statement stm = null;
+        Connection con = null;
+        ResultSet rs = null;
+        
+        Producto producto = new Producto();
+        
+        try {
+            con = Conexion.conectart();
+            String query = "{call ver_producto(?)}";
+            PreparedStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, IdProducto);
+            rs = stmt.executeQuery();
+            if(rs.next()) {
+                producto.setId(rs.getInt(1));
+                producto.setNombre(rs.getString(2));
+                producto.setPrecio(rs.getDouble(3));
+                producto.setStock(rs.getInt(4));
+                producto.setProveedor(rs.getInt(5));
+                producto.setActivo(rs.getBoolean(6));
+            }
+            rs.close();
+            con.close();
+        } catch (SQLException e) {
+            System.err.println("Error : Clase ProductoDaoImpl");
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return producto;
     }
     
 }

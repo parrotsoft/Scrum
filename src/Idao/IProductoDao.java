@@ -18,5 +18,6 @@ public interface IProductoDao {
     public List<Producto> listar();
     public boolean actualizar(Producto usuario);
     public boolean eliminar(Producto usuario);
+    public Producto getProducto(int IdProducto);
     
 }

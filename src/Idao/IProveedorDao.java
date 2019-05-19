@@ -18,5 +18,6 @@ public interface IProveedorDao {
     public List<Proveedor> listar();
     public boolean actualizar(Proveedor proveedor);
     public boolean eliminar(Proveedor proveedor);
+    public Proveedor getProveedor(int idProvedor);
     
 }
