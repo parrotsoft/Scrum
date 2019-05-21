@@ -39,31 +39,35 @@ public class ProveedorController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.viewProveedor.btnGuardar) {
             
-            this.proveedor.setRut(this.viewProveedor.txtRut.getText());
-            this.proveedor.setNombre(this.viewProveedor.txtNombre.getText());
-            this.proveedor.setDireccion(this.viewProveedor.txtDireccion.getText());
-            this.proveedor.setTelefono(this.viewProveedor.txtTelefono.getText());
-            this.proveedor.setWeb(this.viewProveedor.txtWeb.getText());
-            this.proveedor.setActivo(this.viewProveedor.txtActivo.isSelected());
-            
-            if(this.proveedor.getId() != 0) {
-             if (this.proveedorDao.actualizar(proveedor)) {
-                JOptionPane.showMessageDialog(null, "Registro actualizado de forma correcta");
-                this.limpiarCampos();
-                this.proveedor = new Proveedor();
-                this.setTable();
+            if (this.viewProveedor.txtRut.getText().length() == 0 || this.viewProveedor.txtNombre.getText().length() == 0 ) {
+                JOptionPane.showMessageDialog(null, "El campo Rut y Nombre son requeridos.");
             } else {
-                JOptionPane.showMessageDialog(null, "Error: No se pudo actualizar el cliente");
-            }   
-            } else {
-                if (this.proveedorDao.guardar(proveedor)) {
-                JOptionPane.showMessageDialog(null, "Registro almacenado de forma correcta");
-                this.limpiarCampos();
-                this.proveedor = new Proveedor();
-                this.setTable();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error: No se pudo guardar el cliente");
-            }
+                this.proveedor.setRut(this.viewProveedor.txtRut.getText());
+                this.proveedor.setNombre(this.viewProveedor.txtNombre.getText());
+                this.proveedor.setDireccion(this.viewProveedor.txtDireccion.getText());
+                this.proveedor.setTelefono(this.viewProveedor.txtTelefono.getText());
+                this.proveedor.setWeb(this.viewProveedor.txtWeb.getText());
+                this.proveedor.setActivo(this.viewProveedor.txtActivo.isSelected());
+
+                if(this.proveedor.getId() != 0) {
+                 if (this.proveedorDao.actualizar(proveedor)) {
+                    JOptionPane.showMessageDialog(null, "Registro actualizado de forma correcta");
+                    this.limpiarCampos();
+                    this.proveedor = new Proveedor();
+                    this.setTable();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error: No se pudo actualizar el cliente");
+                }   
+                } else {
+                    if (this.proveedorDao.guardar(proveedor)) {
+                     JOptionPane.showMessageDialog(null, "Registro almacenado de forma correcta");
+                        this.limpiarCampos();
+                        this.proveedor = new Proveedor();
+                        this.setTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error: No se pudo guardar el cliente");
+                    }
+                }
             }
             
         }

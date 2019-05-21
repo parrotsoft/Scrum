@@ -16,17 +16,19 @@ public class Venta {
     private double total;
     private String fecha;
     private boolean activo;
+    private double descuento; 
 
     public Venta() {
     }
     
-    public Venta(int id, String cliente, double total, String fecha, boolean activo, String rut) {
+    public Venta(int id, String cliente, double total, String fecha, boolean activo, String rut, double descuento) {
         this.id = id;
         this.cliente = cliente;
         this.total = total;
         this.fecha = fecha;
         this.activo = activo;
         this.rut = rut;
+        this.descuento = descuento;
     }
 
     public int getId() {
@@ -80,5 +82,15 @@ public class Venta {
     public boolean getActivo() {
         return this.activo;
     }
+
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+    
+    
     
 }

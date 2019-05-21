@@ -18,6 +18,7 @@ import Modelo.DetalleVenta;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,7 +35,7 @@ public class VentaDaoImpl implements IVentaDao {
         
         try {
             con = Conexion.conectart();
-            String query = "{call guardar_venta(?,?,?,?,?,?)}";
+            String query = "{call guardar_venta(?,?,?,?,?,?,?)}";
             PreparedStatement stmt = con.prepareCall(query);
             stmt.setInt(1,0);
             stmt.setString(2, venta.getCliente());
@@ -42,6 +43,7 @@ public class VentaDaoImpl implements IVentaDao {
             stmt.setDouble(4, venta.getTotal());
             stmt.setString(5, venta.getFecha());
             stmt.setBoolean(6, venta.getActivo());
+            stmt.setDouble(7, venta.getDescuento());
             ResultSet rs = stmt.executeQuery();
             if(rs.next()) {
                 int idVenta = Integer.parseInt(rs.getString("ID"));
@@ -57,9 +59,11 @@ public class VentaDaoImpl implements IVentaDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase VentaDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return guardar;
@@ -85,15 +89,18 @@ public class VentaDaoImpl implements IVentaDao {
                 venta.setTotal(rs.getDouble(4));
                 venta.setFecha(rs.getString(5));
                 venta.setActivo(rs.getBoolean(6));
+                venta.setDescuento(rs.getDouble(7));
                 listaVentas.add(venta);
             }
             stm.close();
             rs.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error : Clase VentaDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -116,9 +123,11 @@ public class VentaDaoImpl implements IVentaDao {
             stm.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase VentaDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return actualizar;
@@ -140,9 +149,11 @@ public class VentaDaoImpl implements IVentaDao {
             stm.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase VentaDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return eliminar;

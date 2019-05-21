@@ -17,6 +17,7 @@ import Connection.Conexion;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 /**
  *
  * @author miguel
@@ -46,9 +47,11 @@ public class UsuarioDaoImpl implements IUsuarioDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase UsuarioDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return guardar;
@@ -80,9 +83,11 @@ public class UsuarioDaoImpl implements IUsuarioDao {
             rs.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error : Clase UsuarioDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -113,9 +118,11 @@ public class UsuarioDaoImpl implements IUsuarioDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase UsuarioDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return actualizar;
@@ -137,9 +144,11 @@ public class UsuarioDaoImpl implements IUsuarioDao {
             stm.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase UsuarioDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return eliminar;
@@ -167,9 +176,11 @@ public class UsuarioDaoImpl implements IUsuarioDao {
             con.close();
             stm.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase UsuarioDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return loginOk;
@@ -200,9 +211,11 @@ public class UsuarioDaoImpl implements IUsuarioDao {
             rs.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error : Clase UsuarioDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         

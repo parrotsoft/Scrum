@@ -92,7 +92,7 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel6.setText("* Telefono :");
+        jLabel6.setText("Telefono :");
 
         txtTelefono.setBackground(new java.awt.Color(204, 255, 255));
 

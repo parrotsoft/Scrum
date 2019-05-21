@@ -17,6 +17,7 @@ import Connection.Conexion;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,9 +48,11 @@ public class ClienteDaoImpl implements IClienteDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ClienteDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return guardar;
@@ -81,9 +84,11 @@ public class ClienteDaoImpl implements IClienteDao {
             rs.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error : Clase ClienteDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -113,9 +118,11 @@ public class ClienteDaoImpl implements IClienteDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ClienteDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return actualizar;
@@ -137,9 +144,11 @@ public class ClienteDaoImpl implements IClienteDao {
             stm.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ClienteDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return eliminar;
@@ -170,9 +179,11 @@ public class ClienteDaoImpl implements IClienteDao {
             rs.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error : Clase ClienteDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         

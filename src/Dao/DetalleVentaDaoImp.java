@@ -17,6 +17,7 @@ import Connection.Conexion;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,9 +50,11 @@ public class DetalleVentaDaoImp implements IDetalleVentaDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ClienteDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return guardar;

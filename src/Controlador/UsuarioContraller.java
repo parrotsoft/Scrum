@@ -39,6 +39,12 @@ public class UsuarioContraller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.viewUsuarios.btnGuardar) {
+            if (this.viewUsuarios.txtUsuario.getText().length() == 0
+                    || this.viewUsuarios.txtClave.getText().length() == 0
+                    || this.viewUsuarios.txtNombre.getText().length() == 0
+                    || this.viewUsuarios.txtRol.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Todos los campos son requeridos...");
+            }
             this.usuario.setUsuario(this.viewUsuarios.txtUsuario.getText());
             this.usuario.setClave(this.viewUsuarios.txtClave.getText());
             this.usuario.setNombre(this.viewUsuarios.txtNombre.getText());

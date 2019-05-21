@@ -40,29 +40,33 @@ public class ClienteController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.viewCliente.btnGuardar) {
             
-            this.cliente.setRut(this.viewCliente.txtRut.getText());
-            this.cliente.setNombre(this.viewCliente.txtNombre.getText());
-            this.cliente.setDireccion(this.viewCliente.txtDireccion.getText());
-            this.cliente.setTelefono(this.viewCliente.txtTelefono.getText());
-            this.cliente.setActivo(this.viewCliente.txtActivo.isSelected());
-            
-            if (this.cliente.getId() != 0) {
-                if (this.clienteDao.actualizar(this.cliente)) {
-                    JOptionPane.showMessageDialog(null, "Registro actualizado de forma correcta");
-                    this.limpiarCampos();
-                    this.cliente = new Cliente();
-                    this.setTable();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error: No se pudo actualizado el cliente");
-                }
+            if (this.viewCliente.txtRut.getText().length() == 0 || this.viewCliente.txtNombre.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Los campos Rut y Nombre son requeridos...");
             } else {
-                if (this.clienteDao.guardar(this.cliente)) {
-                    JOptionPane.showMessageDialog(null, "Registro almacenado de forma correcta");
-                    this.limpiarCampos();
-                    this.cliente = new Cliente();
-                    this.setTable();
+                this.cliente.setRut(this.viewCliente.txtRut.getText());
+                this.cliente.setNombre(this.viewCliente.txtNombre.getText());
+                this.cliente.setDireccion(this.viewCliente.txtDireccion.getText());
+                this.cliente.setTelefono(this.viewCliente.txtTelefono.getText());
+                this.cliente.setActivo(this.viewCliente.txtActivo.isSelected());
+
+                if (this.cliente.getId() != 0) {
+                    if (this.clienteDao.actualizar(this.cliente)) {
+                        JOptionPane.showMessageDialog(null, "Registro actualizado de forma correcta");
+                        this.limpiarCampos();
+                        this.cliente = new Cliente();
+                        this.setTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error: No se pudo actualizado el cliente");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error: No se pudo guardar el cliente");
+                    if (this.clienteDao.guardar(this.cliente)) {
+                        JOptionPane.showMessageDialog(null, "Registro almacenado de forma correcta");
+                        this.limpiarCampos();
+                        this.cliente = new Cliente();
+                        this.setTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error: No se pudo guardar el cliente");
+                    }
                 }
             }
         }

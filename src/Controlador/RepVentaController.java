@@ -33,18 +33,20 @@ public class RepVentaController implements ActionListener {
     }
  
     private void setTable() {
-        String[] cols = {"ID","Cliente","Rut","Total","Fecha"};
+        String[] cols = {"ID","Cliente","Rut","Total","Descuento","Gran Total","Fecha"};
             this.viewRepVentas.tblVentas.setModel(new DefaultTableModel(null, cols));
             List<Venta> listaVentas = this.ventaDao.listar();
             DefaultTableModel model = (DefaultTableModel) this.viewRepVentas.tblVentas.getModel();
             
-            Object[] fila = new Object[5];
+            Object[] fila = new Object[7];
             for (int i = 0; i < listaVentas.size(); i++) {
                 fila[0] = listaVentas.get(i).getId();
                 fila[1] = listaVentas.get(i).getCliente();
                 fila[2] = listaVentas.get(i).getRut();
                 fila[3] = listaVentas.get(i).getTotal();
-                fila[4] = listaVentas.get(i).getFecha();
+                fila[4] = listaVentas.get(i).getDescuento();
+                fila[5] = listaVentas.get(i).getTotal() - listaVentas.get(i).getDescuento();
+                fila[6] = listaVentas.get(i).getFecha();
                 model.addRow(fila);
             }
     }

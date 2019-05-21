@@ -17,6 +17,7 @@ import Connection.Conexion;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,6 +48,7 @@ public class ProductoDaoImpl implements IProductoDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ProductoDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
@@ -81,9 +83,11 @@ public class ProductoDaoImpl implements IProductoDao {
             rs.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error : Clase ProductoDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -113,9 +117,11 @@ public class ProductoDaoImpl implements IProductoDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ProductoDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return actualizar;
@@ -137,9 +143,11 @@ public class ProductoDaoImpl implements IProductoDao {
             stm.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ProductoDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return eliminar;
@@ -170,9 +178,11 @@ public class ProductoDaoImpl implements IProductoDao {
             rs.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error : Clase ProductoDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         

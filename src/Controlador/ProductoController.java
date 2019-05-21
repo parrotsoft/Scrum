@@ -43,28 +43,41 @@ public class ProductoController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.viewProducto.btnGuardar) {
             
-            this.producto.setNombre(this.viewProducto.txtNombre.getText());
-            this.producto.setPrecio(Double.parseDouble(this.viewProducto.txtPrecio.getText()));
-            this.producto.setStock(Integer.parseInt(this.viewProducto.txtStock.getText()));
-            String idProveedor = this.viewProducto.txtProveedor.getSelectedItem().toString().split("|")[0];
-            this.producto.setProveedor(Integer.parseInt(idProveedor));
-            this.producto.setActivo(this.viewProducto.txtActivo.isSelected());
-            
-            if(this.producto.getId() != 0) {
-                if (this.productoDao.actualizar(producto)) {
-                    JOptionPane.showMessageDialog(null, "Registro actualizado de forma correcta");
-                    this.limpiarCampos();
-                    this.setTable();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error: No se pudo actualizado el Producto");
-                }
+            if (this.viewProducto.txtNombre.getText().length() == 0 || 
+                    this.viewProducto.txtPrecio.getText().length() == 0 || 
+                    this.viewProducto.txtStock.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Todos los campos son requeridos.");
             } else {
-                if (this.productoDao.guardar(producto)) {
-                    JOptionPane.showMessageDialog(null, "Registro almacenado de forma correcta");
-                    this.limpiarCampos();
-                    this.setTable();
+                
+                if (!isNumeric(this.viewProducto.txtPrecio.getText())) {
+                    JOptionPane.showMessageDialog(null, "El precio debe ser un numero!");
+                } else if(!isNumeric(this.viewProducto.txtStock.getText())) {
+                    JOptionPane.showMessageDialog(null, "El Stock debe ser un numero!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error: No se pudo guardar el Producto");
+                    this.producto.setNombre(this.viewProducto.txtNombre.getText());
+                    this.producto.setPrecio(Double.parseDouble(this.viewProducto.txtPrecio.getText()));
+                    this.producto.setStock(Integer.parseInt(this.viewProducto.txtStock.getText()));
+                    String idProveedor = this.viewProducto.txtProveedor.getSelectedItem().toString().split("|")[0];
+                    this.producto.setProveedor(Integer.parseInt(idProveedor));
+                    this.producto.setActivo(this.viewProducto.txtActivo.isSelected());
+
+                    if(this.producto.getId() != 0) {
+                        if (this.productoDao.actualizar(producto)) {
+                            JOptionPane.showMessageDialog(null, "Registro actualizado de forma correcta");
+                            this.limpiarCampos();
+                            this.setTable();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error: No se pudo actualizado el Producto");
+                        }
+                    } else {
+                        if (this.productoDao.guardar(producto)) {
+                            JOptionPane.showMessageDialog(null, "Registro almacenado de forma correcta");
+                            this.limpiarCampos();
+                            this.setTable();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error: No se pudo guardar el Producto");
+                        }
+                    }
                 }
             }
         }
@@ -122,5 +135,14 @@ public class ProductoController implements ActionListener {
             this.viewProducto.txtPrecio.setText("");
             this.viewProducto.txtStock.setText("");
             this.viewProducto.txtActivo.setSelected(false);
+        }
+        
+        private static boolean isNumeric(String cadena){
+            try {
+                    Integer.parseInt(cadena);
+                    return true;
+            } catch (NumberFormatException nfe){
+                    return false;
+            }
         }
 }

@@ -2,10 +2,10 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: May 19, 2019 at 03:10 AM
--- Server version: 5.7.25
--- PHP Version: 7.3.1
+-- Servidor: localhost:8889
+-- Tiempo de generación: 21-05-2019 a las 04:19:38
+-- Versión del servidor: 5.7.25
+-- Versión de PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,14 +17,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `scrum`
+-- Base de datos: `scrum`
 --
 CREATE DATABASE IF NOT EXISTS `scrum` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci;
 USE `scrum`;
 
 DELIMITER $$
 --
--- Procedures
+-- Procedimientos
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_cliente` (`_id` INT, `_rut` VARCHAR(100), `_nombre` VARCHAR(100), `_direccion` VARCHAR(100), `_telefono` VARCHAR(100), `_activo` BINARY)  BEGIN
 	UPDATE clientes SET rut = _rut, nombre = _nombre, direccion = _direccion, telefono = _telefono, activo = _activo
@@ -66,8 +66,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `guardar_usuario` (`_id` INT, `_usua
 	INSERT INTO usuarios(id, usuario, clave, nombre, rol, activo) VALUES(_id, _usuario, _clave, _nombre, _rol, _activo);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `guardar_venta` (`_id` INT, `_cliente` VARCHAR(100), `_rut` VARCHAR(100), `_total` DOUBLE, `_fecha` VARCHAR(100), `_activo` BINARY)  BEGIN
-	INSERT INTO ventas (id, cliente, rut, total, fecha, activo) VALUES(_id, _cliente, _rut, _total, _fecha, _activo);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `guardar_venta` (`_id` INT, `_cliente` VARCHAR(100), `_rut` VARCHAR(100), `_total` DOUBLE, `_fecha` VARCHAR(100), `_activo` BINARY, `_descuento` DOUBLE)  BEGIN
+	INSERT INTO ventas (id, cliente, rut, total, fecha, activo, descuento) VALUES(_id, _cliente, _rut, _total, _fecha, _activo, _descuento);
 	
 	SELECT LAST_INSERT_ID() AS ID;
 END$$
@@ -117,7 +117,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clientes`
+-- Estructura de tabla para la tabla `clientes`
 --
 
 CREATE TABLE `clientes` (
@@ -130,19 +130,22 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Dumping data for table `clientes`
+-- Volcado de datos para la tabla `clientes`
 --
 
 INSERT INTO `clientes` (`id`, `rut`, `nombre`, `direccion`, `telefono`, `activo`) VALUES
 (3, '1043605421', 'miguel', 'calle 222', '23232323', 1),
 (4, '2132', '12312', '12312', '123123', 1),
 (5, '230', 'juan manuel', 'll', 'll0000', 0),
-(6, 'alfredo lopes', 'alfredo', 'calle 44 # 44-21', 'saddsasd', 1);
+(6, 'alfredo lopes', 'alfredo', 'calle 44 # 44-21', 'saddsasd', 1),
+(7, '9999', '99', '99', '99', 0),
+(8, 'sd', 'sd', 'sdsds', 'sdsd', 0),
+(9, 'aasdasdas', 'kadkoaksdoas', '', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detalleVentas`
+-- Estructura de tabla para la tabla `detalleVentas`
 --
 
 CREATE TABLE `detalleVentas` (
@@ -157,7 +160,7 @@ CREATE TABLE `detalleVentas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Dumping data for table `detalleVentas`
+-- Volcado de datos para la tabla `detalleVentas`
 --
 
 INSERT INTO `detalleVentas` (`id`, `venta`, `producto`, `precio`, `cantidad`, `total`, `productoid`, `activo`) VALUES
@@ -165,12 +168,16 @@ INSERT INTO `detalleVentas` (`id`, `venta`, `producto`, `precio`, `cantidad`, `t
 (3, 10, 'Prueba', 1000, 4, 4000, 3, 1),
 (4, 10, 'Producto2', 1000, 2, 2000, 4, 1),
 (5, 11, 'Prueba', 1000, 2, 2000, 3, 1),
-(6, 12, 'Pan de mantequilla 3', 1000, 1, 1000, 1, 1);
+(6, 12, 'Pan de mantequilla 3', 1000, 1, 1000, 1, 1),
+(7, 13, 'Pan de mantequilla 3', 1000, 2, 2000, 1, 1),
+(8, 14, 'Pan de mantequilla 3', 1000, 1, 1000, 1, 1),
+(9, 15, 'Pan de mantequilla 3', 1000, 2, 2000, 1, 1),
+(10, 16, 'Pan de mantequilla 3', 1000, 2, 2000, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productos`
+-- Estructura de tabla para la tabla `productos`
 --
 
 CREATE TABLE `productos` (
@@ -183,19 +190,21 @@ CREATE TABLE `productos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Dumping data for table `productos`
+-- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio`, `stock`, `proveedor`, `activo`) VALUES
 (1, 'Pan de mantequilla 3', 1000, 100, 1, 1),
 (2, 'Arroz diana', 2000, 10, 1, 1),
 (3, 'Prueba', 1000, 100, 3, 1),
-(4, 'Producto2', 1000, 11, 1, 1);
+(4, 'Producto2', 1000, 11, 1, 1),
+(5, 'asd', 2123, 1232312, 1, 1),
+(6, 'wwe', 222, 3, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `proveedores`
+-- Estructura de tabla para la tabla `proveedores`
 --
 
 CREATE TABLE `proveedores` (
@@ -209,18 +218,19 @@ CREATE TABLE `proveedores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Dumping data for table `proveedores`
+-- Volcado de datos para la tabla `proveedores`
 --
 
 INSERT INTO `proveedores` (`id`, `rut`, `nombre`, `direccion`, `telefono`, `web`, `activo`) VALUES
 (1, '1043605421', 'GraficoApp', 'Calle 38 # 48-59', '3182964859', 'www.google.com', 1),
 (2, '2312312', 'ZepolDP0', '0', '0', '0', 0),
-(3, 'test', 'test', 'test', 'test', 'test', 0);
+(3, 'test', 'test', 'test', 'test', 'test', 0),
+(4, 'asdaasdad', 'adsasd', '', '', '', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -233,19 +243,20 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `clave`, `nombre`, `rol`, `activo`) VALUES
 (1, 'admin', 'admin', 'Miguel Lopez Ariza', 1, 1),
 (2, 'kt', 'kt', 'Katherine Mariota', 2, 1),
 (3, 'leonardo', 'leonardo', 'leonardo', 2, 0),
-(4, 'invitado', 'invitado', 'Invitado', 2, 1);
+(4, 'invitado', 'invitado', 'Invitado', 2, 1),
+(5, 'addd', 'adsd', 'sadasd', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ventas`
+-- Estructura de tabla para la tabla `ventas`
 --
 
 CREATE TABLE `ventas` (
@@ -254,98 +265,103 @@ CREATE TABLE `ventas` (
   `rut` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `total` double NOT NULL,
   `fecha` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `activo` tinyint(1) NOT NULL
+  `activo` tinyint(1) NOT NULL,
+  `descuento` double NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Dumping data for table `ventas`
+-- Volcado de datos para la tabla `ventas`
 --
 
-INSERT INTO `ventas` (`id`, `cliente`, `rut`, `total`, `fecha`, `activo`) VALUES
-(9, 'miguel', '1043605421', 3000, 'Sun May 12 12:18:59 COT 2019', 1),
-(10, 'miguel', '1043605421', 6000, 'Sun May 12 12:19:37 COT 2019', 1),
-(11, 'juan manuel', '23', 2000, 'Sun May 12 12:32:36 COT 2019', 1),
-(12, 'miguel', '1043605421', 1000, 'Sat May 18 22:08:06 COT 2019', 1);
+INSERT INTO `ventas` (`id`, `cliente`, `rut`, `total`, `fecha`, `activo`, `descuento`) VALUES
+(9, 'miguel', '1043605421', 3000, 'Sun May 12 12:18:59 COT 2019', 1, 0),
+(10, 'miguel', '1043605421', 6000, 'Sun May 12 12:19:37 COT 2019', 1, 0),
+(11, 'juan manuel', '23', 2000, 'Sun May 12 12:32:36 COT 2019', 1, 0),
+(12, 'miguel', '1043605421', 1000, 'Sat May 18 22:08:06 COT 2019', 1, 0),
+(13, 'miguel', '1043605421', 2000, 'Mon May 20 17:27:32 COT 2019', 1, 1000),
+(14, 'miguel', '1043605421', 1000, 'Mon May 20 22:42:53 COT 2019', 1, 500),
+(15, 'miguel', '1043605421', 2000, 'Mon May 20 23:00:44 COT 2019', 1, 0),
+(16, 'miguel', '1043605421', 2000, 'Mon May 20 23:19:02 COT 2019', 1, 100);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `clientes`
+-- Indices de la tabla `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `detalleVentas`
+-- Indices de la tabla `detalleVentas`
 --
 ALTER TABLE `detalleVentas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `productos`
+-- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `proveedores`
+-- Indices de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ventas`
+-- Indices de la tabla `ventas`
 --
 ALTER TABLE `ventas`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `clientes`
+-- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `detalleVentas`
+-- AUTO_INCREMENT de la tabla `detalleVentas`
 --
 ALTER TABLE `detalleVentas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `productos`
---
-ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `proveedores`
+-- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `usuarios`
---
-ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `ventas`
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

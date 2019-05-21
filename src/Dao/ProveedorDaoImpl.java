@@ -18,6 +18,7 @@ import Connection.Conexion;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 /**
  *
  * @author miguel
@@ -48,9 +49,11 @@ public class ProveedorDaoImpl implements IProveedorDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ProveedorDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return guardar;
@@ -83,9 +86,11 @@ public class ProveedorDaoImpl implements IProveedorDao {
             rs.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error : Clase ProveedorDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -116,9 +121,11 @@ public class ProveedorDaoImpl implements IProveedorDao {
             con.close();
             stmt.close();
         } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ProveedorDaoImpl");
             e.printStackTrace();
         } catch(ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return actualizar;
@@ -140,9 +147,11 @@ public class ProveedorDaoImpl implements IProveedorDao {
             stm.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error: Clase ProveedorDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return eliminar;
@@ -174,9 +183,11 @@ public class ProveedorDaoImpl implements IProveedorDao {
             rs.close();
             con.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.err.println("Error : Clase ProveedorDaoImpl");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
